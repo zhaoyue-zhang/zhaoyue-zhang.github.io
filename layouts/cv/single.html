@@ -1,8 +1,0 @@
-{{ define "main" }}
-{{/* 简历专页：复用正文 prose 样式，套一层卡片容器。
-       content/resume.md 的结构为 ## 姓名 / 联系方式行 / ### 各章节，
-       渲染后姓名为 h2、章节为 h3，列表/引用块沿用 .content 样式。 */}}
-<article class="resume content animate-in">
-  {{ .Content }}
-</article>
-{{ end }}
