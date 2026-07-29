@@ -29,3 +29,7 @@ theme = "PaperMod"
   name = "简历"
   url = "/cv/"
   weight = 3
+[[menu.main]]
+  name = "CV (EN)"
+  url = "/cv/index-en.html"
+  weight = 4
