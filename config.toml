@@ -27,5 +27,5 @@ theme = "PaperMod"
   weight = 2
 [[menu.main]]
   name = "简历"
-  url = "/resume/"
+  url = "/cv/"
   weight = 3
