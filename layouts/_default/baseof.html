@@ -77,6 +77,17 @@
       &copy; {{ now.Format "2006" }} {{ .Site.Params.author | default .Site.Title }} ·
       <span data-i18n="en">Powered by Hugo</span><span data-i18n="zh">由 Hugo 驱动</span>
     </p>
+    <p class="site-stats">
+      <span id="busuanzi_container_site_pv" class="busuanzi-count">
+        <span data-i18n="en">Total views</span><span data-i18n="zh">总访问</span>
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+      <span class="dot"></span>
+      <span id="busuanzi_container_site_uv" class="busuanzi-count">
+        <span data-i18n="en">Visitors</span><span data-i18n="zh">访客</span>
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </p>
   </footer>
   <script>
     (function () {
@@ -131,5 +142,7 @@
       applyLang(currentLang());
     })();
   </script>
+  <!-- 不蒜子阅读量统计：异步加载，不影响渲染 -->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>

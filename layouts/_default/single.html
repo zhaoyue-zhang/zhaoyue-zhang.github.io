@@ -5,6 +5,11 @@
     <div class="meta">
       <time>{{ .Date.Format "2006-01-02" }}</time>
       {{ if .ReadingTime }}<span class="dot"></span><span><span data-i18n="en">{{ .ReadingTime }} min read</span><span data-i18n="zh">{{ .ReadingTime }} 分钟阅读</span></span>{{ end }}
+      <span class="dot"></span>
+      <span id="busuanzi_container_page_pv" class="busuanzi-count">
+        <span data-i18n="en">Views</span><span data-i18n="zh">阅读</span>
+        <span id="busuanzi_value_page_pv"></span>
+      </span>
     </div>
     {{ if .Params.description }}<p class="desc">{{ .Params.description }}</p>{{ end }}
   </header>
