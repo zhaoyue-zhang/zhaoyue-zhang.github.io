@@ -45,7 +45,7 @@ theme = "PaperMod"
         weight = 2
       [[languages.en.menu.main]]
         name = "CV"
-        url = "/cv/index-en.html"
+        url = "/en/cv/"
         weight = 3
 
 [params]

@@ -12,6 +12,15 @@
 <!--[if lte IE 9]><script>if(/*@cc_on!@*/0){var a='header,address,main,section,footer,details,summary,article'.split(','),i=0;while(i<a.length)document.createElement(a[i++])}</script><link rel="stylesheet" href="assets/css/ie.css"><![endif]-->
 </head>
 <body>
+<nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:10px 24px;background:#fff;border-bottom:1px solid #e5e7eb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;">
+  <a href="/en/" style="text-decoration:none;color:#111;font-weight:600;">Zhaoyue's Blog &amp; CV</a>
+  <div style="display:flex;align-items:center;gap:18px;">
+    <a href="/en/" style="text-decoration:none;color:#555;">Home</a>
+    <a href="/en/posts/" style="text-decoration:none;color:#555;">Posts</a>
+    <span style="color:#111;font-weight:600;">CV</span>
+    <button onclick="location.href='/cv/'" style="border:1px solid #d1d5db;border-radius:6px;padding:4px 10px;background:#fff;cursor:pointer;font-size:13px;">中</button>
+  </div>
+</nav>
 <header>
 <div class="avatar"><img src="assets/img/photo.svg" alt="Zhaoyue Zhang"></div>
 <div id="name"><h1>Zhaoyue Zhang</h1><div class="jobtitle">Logic Verification Engineer</div></div>
