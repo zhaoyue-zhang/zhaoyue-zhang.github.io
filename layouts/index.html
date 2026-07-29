@@ -13,7 +13,7 @@
 <section class="section animate-in d1">
   <div class="section-head">
     <h2><span data-i18n="en">Latest Posts</span><span data-i18n="zh">最新文章</span></h2>
-    <a class="more" href="{{ "posts/" | relURL }}"><span data-i18n="en">View all →</span><span data-i18n="zh">查看全部 →</span></a>
+    <a class="more" href="{{ .Site.LanguagePrefix }}/posts/"><span data-i18n="en">View all →</span><span data-i18n="zh">查看全部 →</span></a>
   </div>
   <div class="post-list">
     {{ $posts := where .Site.RegularPages "Section" "posts" }}
@@ -34,7 +34,7 @@
   </div>
 </section>
 
-<a class="resume-cta animate-in d2" href="{{ "cv/" | relURL }}">
+<a class="resume-cta animate-in d2" href="{{ .Site.LanguagePrefix }}/cv/">
   <span class="cta-text">
     <strong class="cta-title"><span data-i18n="en">Résumé</span><span data-i18n="zh">简历</span></strong>
     <p><span data-i18n="en">My education, skills, and project experience</span><span data-i18n="zh">了解我的教育背景、技能与项目经历</span></p>

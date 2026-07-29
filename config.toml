@@ -37,11 +37,11 @@ theme = "PaperMod"
     [languages.en.menu]
       [[languages.en.menu.main]]
         name = "Home"
-        url = "/"
+        url = "/en/"
         weight = 1
       [[languages.en.menu.main]]
         name = "Posts"
-        url = "/posts/"
+        url = "/en/posts/"
         weight = 2
       [[languages.en.menu.main]]
         name = "CV"
