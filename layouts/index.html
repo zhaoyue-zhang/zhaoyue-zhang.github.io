@@ -1,0 +1,22 @@
+{{ define "main" }}
+<section class="hero">
+  <h1>{{ .Site.Title }}</h1>
+  <p>{{ .Site.Params.description }}</p>
+</section>
+
+<section class="posts">
+  <h2>最新文章</h2>
+  {{ range .Site.RegularPages }}
+  <article class="post-card">
+    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    <time>{{ .Date.Format "2006-01-02" }}</time>
+    <p>{{ .Description | default (truncate 120 .Plain) }}</p>
+  </article>
+  {{ end }}
+</section>
+
+<section class="resume-preview">
+  <h2>简历</h2>
+  <p><a href="/resume/">查看我的简历 →</a></p>
+</section>
+{{ end }}

@@ -1,0 +1,31 @@
+baseurl = "https://zhaoyue-zhang.github.io/my-page/"
+languageCode = "zh-CN"
+title = "赵越的博客 & 简历"
+description = "记录思考，分享技术，展示成长"
+author = "赵越"
+theme = "PaperMod"
+
+[params]
+  env = "production"
+  googleAnalytics = ""
+  DisqusShortname = ""
+  # Social links
+  [[params.social]]
+    name = "GitHub"
+    url = "https://github.com/zhaoyue-zhang"
+  [[params.social]]
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/yourname"
+
+[[menu.main]]
+  name = "首页"
+  url = "/"
+  weight = 1
+[[menu.main]]
+  name = "博客"
+  url = "/posts/"
+  weight = 2
+[[menu.main]]
+  name = "简历"
+  url = "/resume/"
+  weight = 3
