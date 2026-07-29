@@ -1,8 +1,11 @@
 {{ define "main" }}
-<article class="post-single">
+<article class="post-single animate-in">
   <header>
     <h1>{{ .Title }}</h1>
-    <time>{{ .Date.Format "2006-01-02" }}</time>
+    <div class="meta">
+      <time>{{ .Date.Format "2006-01-02" }}</time>
+      {{ if .ReadingTime }}<span class="dot"></span><span><span data-i18n="en">{{ .ReadingTime }} min read</span><span data-i18n="zh">{{ .ReadingTime }} 分钟阅读</span></span>{{ end }}
+    </div>
     {{ if .Params.description }}<p class="desc">{{ .Params.description }}</p>{{ end }}
   </header>
   <section class="content">

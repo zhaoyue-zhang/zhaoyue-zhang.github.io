@@ -1,22 +1,44 @@
 {{ define "main" }}
-<section class="hero">
-  <h1>{{ .Site.Title }}</h1>
-  <p>{{ .Site.Params.description }}</p>
+<section class="hero animate-in">
+  <span class="eyebrow"><span data-i18n="en">Blog · Résumé</span><span data-i18n="zh">博客 · 简历</span></span>
+  <h1>
+    <span data-i18n="en">Zhaoyue's Blog &amp; Résumé</span><span data-i18n="zh">{{ .Site.Title }}</span>
+  </h1>
+  <p class="tagline">
+    <span data-i18n="en">Thoughts, tech notes, and growth along the way</span><span data-i18n="zh">记录思考，分享技术，展示成长</span>
+  </p>
+  <div class="hero-divider"></div>
 </section>
 
-<section class="posts">
-  <h2>最新文章</h2>
-  {{ range .Site.RegularPages }}
-  <article class="post-card">
-    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-    <time>{{ .Date.Format "2006-01-02" }}</time>
-    <p>{{ .Description | default (truncate 120 .Plain) }}</p>
-  </article>
-  {{ end }}
+<section class="section animate-in d1">
+  <div class="section-head">
+    <h2><span data-i18n="en">Latest Posts</span><span data-i18n="zh">最新文章</span></h2>
+    <a class="more" href="{{ "posts/" | relURL }}"><span data-i18n="en">View all →</span><span data-i18n="zh">查看全部 →</span></a>
+  </div>
+  <div class="post-list">
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ range first 5 $posts }}
+    <article class="post-card">
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      <div class="meta">
+        <time>{{ .Date.Format "2006-01-02" }}</time>
+        {{ if .ReadingTime }}<span class="dot"></span><span><span data-i18n="en">{{ .ReadingTime }} min read</span><span data-i18n="zh">{{ .ReadingTime }} 分钟阅读</span></span>{{ end }}
+      </div>
+      <p class="excerpt">{{ .Description | default (truncate 120 .Plain) }}</p>
+    </article>
+    {{ else }}
+    <p style="color: var(--muted);">
+      <span data-i18n="en">No posts yet—write your first one in <code>content/posts/</code>.</span><span data-i18n="zh">还没有文章，去 <code>content/posts/</code> 写第一篇吧。</span>
+    </p>
+    {{ end }}
+  </div>
 </section>
 
-<section class="resume-preview">
-  <h2>简历</h2>
-  <p><a href="/resume/">查看我的简历 →</a></p>
-</section>
+<a class="resume-cta animate-in d2" href="{{ "resume/" | relURL }}">
+  <span class="cta-text">
+    <strong class="cta-title"><span data-i18n="en">Résumé</span><span data-i18n="zh">简历</span></strong>
+    <p><span data-i18n="en">My education, skills, and project experience</span><span data-i18n="zh">了解我的教育背景、技能与项目经历</span></p>
+  </span>
+  <span class="cta-arrow" aria-hidden="true">→</span>
+</a>
 {{ end }}
