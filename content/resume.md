@@ -45,7 +45,10 @@ type: "resume"
 
 ### 技能
 
-> 待补充
+- **语言能力**：雅思 7.0 | CET-4、CET-6
+- **编程语言**：熟练 Verilog | SystemVerilog；了解 Python | Makefile
+- **EDA / 工具**：Linux | VCS | Verdi | SVN | Matlab | ModelSim | GTKwave | Iverilog
+- **AI 工具**：熟练使用 coding AI agent —— Claude Code、Codex、OpenCode、Hermes
 
 ### 实习经历
 
