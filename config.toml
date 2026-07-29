@@ -1,9 +1,52 @@
 baseurl = "https://zhaoyue-zhang.github.io/"
+defaultContentLanguage = "zh"
 languageCode = "zh-CN"
 title = "照悦的博客 & 简历"
 description = "记录思考，分享技术，展示成长"
 author = "照悦"
 theme = "PaperMod"
+
+[languages]
+  [languages.zh]
+    weight = 1
+    languageName = "中文"
+    [languages.zh.params]
+      languageAltTitle = "中文"
+    [languages.zh.menu]
+      [[languages.zh.menu.main]]
+        name = "首页"
+        url = "/"
+        weight = 1
+      [[languages.zh.menu.main]]
+        name = "博客"
+        url = "/posts/"
+        weight = 2
+      [[languages.zh.menu.main]]
+        name = "简历"
+        url = "/cv/"
+        weight = 3
+
+  [languages.en]
+    weight = 2
+    languageName = "English"
+    title = "Zhaoyue's Blog & CV"
+    description = "Share thoughts, tech, and growth"
+    author = "Zhaoyue"
+    [languages.en.params]
+      languageAltTitle = "English"
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        name = "Home"
+        url = "/"
+        weight = 1
+      [[languages.en.menu.main]]
+        name = "Posts"
+        url = "/posts/"
+        weight = 2
+      [[languages.en.menu.main]]
+        name = "CV"
+        url = "/cv/index-en.html"
+        weight = 3
 
 [params]
   env = "production"
@@ -16,20 +59,3 @@ theme = "PaperMod"
   [[params.social]]
     name = "LinkedIn"
     url = "https://www.linkedin.com/in/yourname"
-
-[[menu.main]]
-  name = "首页"
-  url = "/"
-  weight = 1
-[[menu.main]]
-  name = "博客"
-  url = "/posts/"
-  weight = 2
-[[menu.main]]
-  name = "简历"
-  url = "/cv/"
-  weight = 3
-[[menu.main]]
-  name = "CV (EN)"
-  url = "/cv/index-en.html"
-  weight = 4
