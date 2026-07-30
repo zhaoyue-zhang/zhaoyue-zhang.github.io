@@ -57,6 +57,13 @@
 <details><summary class="summary">Project 2: AI Chip High-Speed Network Interface Verification</summary><div class="detail"><ul><li>Responsible for functional verification and interface consistency verification after third-party IP integration.</li><li>Conducted functional verification, interrupt verification, and system-level integration verification.</li><li>Completed Gate-Level Simulation, SDF back-annotation, and typical timing issue analysis.</li><li>Collaborated with third-party IP vendors for issue localization and verification closure.</li></ul></div></details>
 <details><summary class="summary">Project 3: AI Chip Routing Information Module Verification</summary><div class="detail"><ul><li>Participated in data routing module verification, responsible for data path Reference Model development.</li><li>Supported routing and data distribution functional verification.</li></ul></div></details>
 </article>
+<article class="block">
+<div class="head"><h3 class="title">NutShell Cache AI-Assisted Verification</h3><h4 class="sub">Open-source Project / CCF Track1 UCAgent</h4></div>
+<div class="info"><div class="tag"><code>UCAgent · Claude Code (MCP) · Toffee · Picker · Verilator · Python</code></div><i class="time">Jul 2026</i></div>
+<div class="detail">Built a full verification closure on the open-source NutShell RISC-V L1 cache (4-way set-associative, 3-stage pipeline) using an all-open-source toolchain: Picker for DUT export, Toffee for the verification framework &amp; functional coverage, Verilator for simulation; one-command reproducibility (<code>make reproduce</code>).</div>
+<details><summary class="summary">AI-Agent Verification Tooling in Practice</summary><div class="detail"><ul><li>Orchestrated 16 verification stages via UCAgent with Claude Code connected through MCP to auto-generate env / scoreboard / stimulus / coverage closure.</li><li>Acted as human reviewer across 4 formal reviews, correcting multiple false AI conclusions (e.g. PREFETCH defect root cause).</li><li>Maintained an AI-defect comparison table — establishing an AI-produce &rarr; human-review &rarr; remediate loop.</li></ul></div></details>
+<details><summary class="summary">Results</summary><div class="detail"><ul><li>Line / Branch / Expression coverage 100%, Toggle 90% multi-seed, functional coverage 120 bins (grate 100%).</li><li>All 10 bug-injection scenarios detected.</li><li>Independently root-caused 2 real RTL defects (PREFETCH dead-code response suppression, READ_BURST deadlock), archived with <code>xfail(strict=True)</code>.</li></ul></div></details>
+</article>
 </div>
 </section>
 <section id="skills">

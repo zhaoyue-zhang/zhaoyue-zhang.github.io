@@ -57,6 +57,13 @@
 <details><summary class="summary">项目二：AI 芯片高速网络接口验证</summary><div class="detail"><ul><li>负责第三方 IP 集成后的功能验证及接口一致性验证。</li><li>开展功能验证、中断验证及系统集成验证。</li><li>完成 Gate-Level Simulation、SDF 回标及典型时序问题分析。</li><li>与第三方 IP 供应商协同完成问题定位与验证闭环。</li></ul></div></details>
 <details><summary class="summary">项目三：AI 芯片路由信息模块验证</summary><div class="detail"><ul><li>参与数据路由模块验证，负责数据通路 Reference Model 开发。</li><li>支撑路由及数据分发功能验证。</li></ul></div></details>
 </article>
+<article class="block">
+<div class="head"><h3 class="title">NutShell Cache AI 协同验证工程</h3><h4 class="sub">开源项目实践 / CCF Track1 UCAgent 竞赛</h4></div>
+<div class="info"><div class="tag"><code>UCAgent · Claude Code(MCP)· Toffee · Picker · Verilator · Python</code></div><i class="time">2026.07</i></div>
+<div class="detail">基于开源 RISC-V 处理器 NutShell 的 L1 Cache（4-way 组相联、3 级流水）搭建完整验证闭环，工具链全部基于开源生态：Picker 导出 DUT、Toffee 提供验证框架与功能覆盖、Verilator 仿真，一键 <code>make reproduce</code> 可复现。</div>
+<details><summary class="summary">AI Agent 验证工具落地</summary><div class="detail"><ul><li>通过 UCAgent 编排 16 个验证阶段，经 MCP 接入 Claude Code 自动产出环境 / 记分板 / 激励 / 覆盖闭环。</li><li>作为人工审查者完成 4 轮 formal review，纠正 AI 多处错误结论（如 PREFETCH 缺陷根因误判）。</li><li>形成“AI 产出 → 人工审查 → 反馈修复”闭环，沉淀 AI 缺陷对比表。</li></ul></div></details>
+<details><summary class="summary">验证成效</summary><div class="detail"><ul><li>Line / Branch / Expression 覆盖率达 100%，Toggle 多 seed 90%，功能覆盖 120 bins（grate 100%）。</li><li>10 个 bug 注入场景全部检出。</li><li>独立定位 2 个真实 RTL 缺陷（PREFETCH 响应抑制死代码、READ_BURST 死锁），以 <code>xfail(strict=True)</code> 规范化归档，体现 spec 与 RTL 缺口的双重把握。</li></ul></div></details>
+</article>
 </div>
 </section>
 <section id="skills">
