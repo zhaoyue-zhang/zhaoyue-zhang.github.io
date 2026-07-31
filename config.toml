@@ -25,6 +25,10 @@ theme = "PaperMod"
         name = "简历"
         url = "/cv/"
         weight = 3
+      [[languages.zh.menu.main]]
+        name = "标签"
+        url = "/tags/"
+        weight = 4
 
   [languages.en]
     weight = 2
@@ -47,6 +51,10 @@ theme = "PaperMod"
         name = "CV"
         url = "/en/cv/"
         weight = 3
+      [[languages.en.menu.main]]
+        name = "Tags"
+        url = "/en/tags/"
+        weight = 4
 
 [params]
   env = "production"

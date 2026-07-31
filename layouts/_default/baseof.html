@@ -42,6 +42,10 @@
             <span data-i18n="en">Blog</span><span data-i18n="zh">博客</span>
           {{ else if eq .Name "简历" }}
             <span data-i18n="en">Résumé</span><span data-i18n="zh">简历</span>
+          {{ else if eq .Name "标签" }}
+            <span data-i18n="en">Tags</span><span data-i18n="zh">标签</span>
+          {{ else if eq .Name "Tags" }}
+            <span data-i18n="en">Tags</span><span data-i18n="zh">标签</span>
           {{ else }}{{ .Name }}{{ end }}
         </a>
         {{ end }}

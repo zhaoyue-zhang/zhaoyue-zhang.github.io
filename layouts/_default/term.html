@@ -1,10 +1,16 @@
 {{ define "main" }}
 <header class="animate-in">
-  <h1 class="page-title">{{ .Title }}</h1>
-  {{ if .Description }}<p class="page-desc">{{ .Description }}</p>{{ end }}
+  <h1 class="page-title">
+    <span data-i18n="en">Tag</span><span data-i18n="zh">标签</span>:
+    {{ .Title }}
+  </h1>
+  {{ with .Description }}<p class="page-desc">{{ . }}</p>{{ end }}
+  <p class="page-desc" style="margin-top: 0.5rem;">
+    <span data-i18n="en">{{ len .Pages }} post(s)</span><span data-i18n="zh">共 {{ len .Pages }} 篇</span>
+  </p>
 </header>
 <div class="post-list">
-  {{ range .Pages }}
+  {{ range .Pages.ByDate.Reverse }}
   <article class="post-card animate-in">
     <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
     <div class="meta">
@@ -22,7 +28,7 @@
   </article>
   {{ else }}
   <p style="color: var(--muted);">
-    <span data-i18n="en">Nothing here yet.</span><span data-i18n="zh">这里还没有内容。</span>
+    <span data-i18n="en">No posts under this tag yet.</span><span data-i18n="zh">这个标签下还没有文章。</span>
   </p>
   {{ end }}
 </div>

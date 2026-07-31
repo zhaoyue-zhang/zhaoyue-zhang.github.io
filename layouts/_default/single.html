@@ -16,5 +16,17 @@
   <section class="content">
     {{ .Content }}
   </section>
+  {{ if .Params.tags }}
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li class="post-tags-label">
+        <span data-i18n="en">Tagged</span><span data-i18n="zh">标签</span>
+      </li>
+      {{ range (.GetTerms "tags") }}
+      <li><a class="tag-pill" href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      {{ end }}
+    </ul>
+  </footer>
+  {{ end }}
 </article>
 {{ end }}

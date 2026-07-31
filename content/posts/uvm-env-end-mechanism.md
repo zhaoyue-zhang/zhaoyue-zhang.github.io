@@ -2,6 +2,7 @@
 title: "UVM环境结束机制"
 date: 2026-07-29
 draft: false
+tags: ["UVM Knowledge"]
 description: "UVM 验证环境何时才算真正结束？从 DUT 接口收包、RM 队列状态到 objection 投票机制，梳理一套普适的环境结束判断方法。"
 ---
 

@@ -2,6 +2,7 @@
 title: "UVM Environment End-of-Simulation Mechanism"
 date: 2026-07-29
 draft: false
+tags: ["UVM Knowledge"]
 description: "When is a UVM verification environment truly done? From DUT interface packet reception and RM queue status to the objection voting mechanism, a general-purpose approach to determining environment completion."
 ---
 
