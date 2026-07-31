@@ -2,7 +2,7 @@
 title: "【SV_RANDOM】随机化与约束"
 date: 2026-07-31
 draft: false
-tags: ["UVM Knowledge"]
+tags: ["UVM Knowledge", "SystemVerilog"]
 description: "SystemVerilog 随机化稳定性的判别（$random/$dist vs $urandom/randomize）、约束拆分原则、soft 约束的生效机制，以及父类 soft 与子类 dist 冲突时的实际行为。"
 ---
 

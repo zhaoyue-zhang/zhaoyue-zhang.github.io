@@ -2,7 +2,7 @@
 title: "【SV_RANDOM】Randomization and Constraints"
 date: 2026-07-31
 draft: false
-tags: ["UVM Knowledge"]
+tags: ["UVM Knowledge", "SystemVerilog"]
 description: "How to judge randomization stability in SystemVerilog ($random/$dist vs $urandom/randomize), principles for splitting constraints, how soft constraints interact with hard constraints, and what actually happens when a parent's soft constraint meets a child's dist constraint."
 ---
 
