@@ -558,3 +558,79 @@ footer p { margin: 0.25rem 0; }
   gap: 0.4rem;
   margin-top: 0.6rem;
 }
+
+/* ---------- Code block syntax highlighting (light mode) ----------
+   PaperMod 自带的 chroma 主题是 Catppuccin Mocha（深色），
+   在浅色背景下 token 颜色发暗、可读性差。
+   下方覆写仅在浅色 / 默认主题下生效（命中 ":root:not([data-theme=\"dark\"])"），
+   深色模式保留 PaperMod 原装配色。 */
+:root:not([data-theme="dark"]) .chroma { color:#1f2328; }
+:root:not([data-theme="dark"]) .chroma .err { color:#82071e; background-color:#ffebe9; }
+:root:not([data-theme="dark"]) .chroma .hl { background-color:#dedede; }
+:root:not([data-theme="dark"]) .chroma .lnt,
+:root:not([data-theme="dark"]) .chroma .ln { color:#7f7f7f; }
+:root:not([data-theme="dark"]) .chroma .k,
+:root:not([data-theme="dark"]) .chroma .kc,
+:root:not([data-theme="dark"]) .chroma .kd,
+:root:not([data-theme="dark"]) .chroma .kn,
+:root:not([data-theme="dark"]) .chroma .kp,
+:root:not([data-theme="dark"]) .chroma .kr,
+:root:not([data-theme="dark"]) .chroma .kt { color:#cf222e; }
+:root:not([data-theme="dark"]) .chroma .na,
+:root:not([data-theme="dark"]) .chroma .nc,
+:root:not([data-theme="dark"]) .chroma .nx { color:#1f2328; }
+:root:not([data-theme="dark"]) .chroma .no,
+:root:not([data-theme="dark"]) .chroma .nd,
+:root:not([data-theme="dark"]) .chroma .nt,
+:root:not([data-theme="dark"]) .chroma .mi,
+:root:not([data-theme="dark"]) .chroma .il,
+:root:not([data-theme="dark"]) .chroma .mo,
+:root:not([data-theme="dark"]) .chroma .o,
+:root:not([data-theme="dark"]) .chroma .ow,
+:root:not([data-theme="dark"]) .chroma .or { color:#0550ae; }
+:root:not([data-theme="dark"]) .chroma .ni,
+:root:not([data-theme="dark"]) .chroma .nb,
+:root:not([data-theme="dark"]) .chroma .bp { color:#6639ba; }
+:root:not([data-theme="dark"]) .chroma .nl { color:#900; font-weight:bold; }
+:root:not([data-theme="dark"]) .chroma .nn { color:#24292e; }
+:root:not([data-theme="dark"]) .chroma .nf { color:#8250df; }
+:root:not([data-theme="dark"]) .chroma .nv,
+:root:not([data-theme="dark"]) .chroma .vc,
+:root:not([data-theme="dark"]) .chroma .vg,
+:root:not([data-theme="dark"]) .chroma .vi { color:#953800; }
+:root:not([data-theme="dark"]) .chroma .s,
+:root:not([data-theme="dark"]) .chroma .sa,
+:root:not([data-theme="dark"]) .chroma .sb,
+:root:not([data-theme="dark"]) .chroma .sc,
+:root:not([data-theme="dark"]) .chroma .dl,
+:root:not([data-theme="dark"]) .chroma .s2,
+:root:not([data-theme="dark"]) .chroma .se,
+:root:not([data-theme="dark"]) .chroma .sh,
+:root:not([data-theme="dark"]) .chroma .si,
+:root:not([data-theme="dark"]) .chroma .sx,
+:root:not([data-theme="dark"]) .chroma .sr,
+:root:not([data-theme="dark"]) .chroma .s1,
+:root:not([data-theme="dark"]) .chroma .ss { color:#0a3069; }
+:root:not([data-theme="dark"]) .chroma .m,
+:root:not([data-theme="dark"]) .chroma .mb,
+:root:not([data-theme="dark"]) .chroma .mf,
+:root:not([data-theme="dark"]) .chroma .mh,
+:root:not([data-theme="dark"]) .chroma .mhi { color:#0550ae; }
+:root:not([data-theme="dark"]) .chroma .ge { color:#1f2328; }
+:root:not([data-theme="dark"]) .chroma .gs { font-weight:bold; }
+:root:not([data-theme="dark"]) .chroma .gh,
+:root:not([data-theme="dark"]) .chroma .gu { color:#444d56; font-weight:bold; }
+:root:not([data-theme="dark"]) .chroma .go { color:#1f2328; }
+:root:not([data-theme="dark"]) .chroma .gp { color:#1f2328; }
+:root:not([data-theme="dark"]) .chroma .gi { color:#116329; background-color:#dafbe1; }
+:root:not([data-theme="dark"]) .chroma .gd { color:#82071e; background-color:#ffebe9; }
+:root:not([data-theme="dark"]) .chroma .gt { color:#cf222e; }
+:root:not([data-theme="dark"]) .chroma .w { color:#fff; }
+:root:not([data-theme="dark"]) .chroma .p { color:#1f2328; }
+:root:not([data-theme="dark"]) .chroma .c,
+:root:not([data-theme="dark"]) .chroma .ch,
+:root:not([data-theme="dark"]) .chroma .cm,
+:root:not([data-theme="dark"]) .chroma .c1,
+:root:not([data-theme="dark"]) .chroma .cs,
+:root:not([data-theme="dark"]) .chroma .cp,
+:root:not([data-theme="dark"]) .chroma .cpf { color:#57606a; }

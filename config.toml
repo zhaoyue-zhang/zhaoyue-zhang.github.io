@@ -59,6 +59,17 @@ theme = "PaperMod"
 [params]
   env = "production"
   googleAnalytics = ""
+
+# Hugo chroma syntax highlighting:
+# noClasses=false  → 输出 <span class="..."> 而不是 inline style，
+#                   这样外层 .content pre 的浅色背景能正常生效，
+#                   也让我们自己的 token 颜色覆写可以起作用。
+# style=github     → 使用 github light 主题作为 base。
+[markup]
+  [markup.highlight]
+    noClasses = false
+    style = "github"
+    tabWidth = 4
   DisqusShortname = ""
   # Social links
   [[params.social]]
