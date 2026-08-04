@@ -4,6 +4,9 @@
     <h1>{{ .Title }}</h1>
     {{ if .Params.tags }}
     <ul class="post-tags post-tags-header">
+      <li class="post-tags-label">
+        <span data-i18n="en">Tags:</span><span data-i18n="zh">标签：</span>
+      </li>
       {{ range (.GetTerms "tags") }}
       <li><a class="tag-pill" href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
       {{ end }}

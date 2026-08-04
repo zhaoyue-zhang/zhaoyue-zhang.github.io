@@ -529,6 +529,7 @@ footer p { margin: 0.25rem 0; }
   margin-top: 0.75rem;
   padding-top: 0;
   border-top: none;
+  margin-bottom: 1.25rem;
 }
 .post-tags-label {
   font-size: 0.85rem;
