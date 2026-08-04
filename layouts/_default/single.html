@@ -2,6 +2,13 @@
 <article class="post-single animate-in">
   <header>
     <h1>{{ .Title }}</h1>
+    {{ if .Params.tags }}
+    <ul class="post-tags post-tags-header">
+      {{ range (.GetTerms "tags") }}
+      <li><a class="tag-pill" href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      {{ end }}
+    </ul>
+    {{ end }}
     <div class="meta">
       <time>{{ .Date.Format "2006-01-02" }}</time>
       {{ if .ReadingTime }}<span class="dot"></span><span><span data-i18n="en">{{ .ReadingTime }} min read</span><span data-i18n="zh">{{ .ReadingTime }} 分钟阅读</span></span>{{ end }}

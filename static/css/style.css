@@ -524,6 +524,12 @@ footer p { margin: 0.25rem 0; }
   border-top: 1px solid var(--border);
   list-style: none;
 }
+/* 放在文章头部的 tag：去掉上分隔线和小上间距，紧贴标题 */
+.post-tags-header {
+  margin-top: 0.75rem;
+  padding-top: 0;
+  border-top: none;
+}
 .post-tags-label {
   font-size: 0.85rem;
   color: var(--muted);
