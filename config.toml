@@ -70,6 +70,12 @@ theme = "PaperMod"
     noClasses = false
     style = "github"
     tabWidth = 4
+
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      # 允许 markdown 中直接写 HTML（如 <iframe> / <details> / 行内 <div>），
+      # 本站是个人静态站，可控；这样 mermaid 决策树旁的 iframe 嵌入才能生效。
+      unsafe = true
   DisqusShortname = ""
   # Social links
   [[params.social]]

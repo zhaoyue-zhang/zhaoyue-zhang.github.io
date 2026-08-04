@@ -7,6 +7,17 @@
   <meta name="description" content="{{ .Description | default "Zhaoyue's blog and résumé — thoughts, tech notes, and growth along the way." }}">
   <meta name="color-scheme" content="light dark">
   <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+  <!-- Mermaid (渲染 mermaid shortcode 内的流程图) -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    if (typeof mermaid !== 'undefined') {
+      mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+      });
+    }
+  </script>
   <!-- 防止刷新闪白/跑回默认：首屏前确定主题；语言由当前 URL 决定 -->
   <script>
     (function () {

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>四协议帧结构 + CRC 覆盖范围对比</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #0f172a; color: #e2e8f0; padding: 32px 24px;
+    max-width: 1280px; margin: 0 auto; line-height: 1.5;
+  }
+  h1 { color: #f1f5f9; font-size: 22px; margin: 0 0 4px; }
+  .subtitle { color: #94a3b8; font-size: 13px; margin-bottom: 24px; }
+
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 28px;
+    padding: 14px 16px; background: #1e293b; border-radius: 8px;
+    border: 1px solid #334155;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #cbd5e1; }
+  .legend-swatch { width: 18px; height: 18px; border-radius: 3px; flex-shrink: 0; }
+  .swatch-l2       { background: #3b82f6; }
+  .swatch-l25      { background: #6366f1; }
+  .swatch-l3       { background: #10b981; }
+  .swatch-l4       { background: #14b8a6; }
+  .swatch-txn      { background: #f59e0b; }
+  .swatch-ses      { background: #a855f7; }
+  .swatch-payload  { background: #475569; }
+  .swatch-icrc     { background: #ef4444; }
+  .swatch-fcs      { background: #0f172a; border: 1.5px solid #fbbf24; }
+
+  .protocol { margin-bottom: 28px; }
+  .proto-title {
+    font-size: 16px; font-weight: 600; color: #f1f5f9;
+    margin-bottom: 4px; display: flex; align-items: center; gap: 10px;
+  }
+  .proto-title .badge {
+    font-size: 11px; font-weight: 500; padding: 2px 8px;
+    border-radius: 999px; background: #334155; color: #cbd5e1;
+  }
+  .proto-note { font-size: 12px; color: #94a3b8; margin-bottom: 10px; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  .frame {
+    display: flex; border: 1px solid #334155; border-radius: 6px;
+    overflow: hidden; min-height: 56px; position: relative;
+    background: #0b1220;
+  }
+  .field {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 8px 4px; font-size: 12px; font-weight: 500; text-align: center;
+    color: #fff; border-right: 1px solid rgba(15, 23, 42, 0.4);
+    position: relative; min-width: 0;
+  }
+  .field:last-child { border-right: none; }
+  .field .name { line-height: 1.25; word-break: keep-all; }
+  .field .size { display: block; font-size: 10px; opacity: 0.8; margin-top: 2px; font-weight: 400; }
+
+  .l2       { background: #3b82f6; }
+  .l25      { background: #6366f1; }
+  .l3       { background: #10b981; }
+  .l4       { background: #14b8a6; }
+  .txn      { background: #f59e0b; color: #1e293b; }
+  .ses      { background: #a855f7; }
+  .payload  { background: #475569; }
+  .icrc     {
+    background: #ef4444; color: #fff;
+    border-left: 2px solid #fca5a5; border-right: 2px solid #fca5a5;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+  }
+  .pad {
+    background: repeating-linear-gradient(45deg, #1e293b, #1e293b 6px, #172033 6px, #172033 12px);
+    color: #94a3b8; border-left: 1px dashed #475569; border-right: 1px dashed #475569;
+  }
+  .fcs {
+    background: #0f172a; color: #fbbf24;
+    border-left: 2px solid #fbbf24;
+  }
+
+  .crc-coverage {
+    margin-top: 8px; padding: 8px 14px;
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px dashed #ef4444; border-radius: 4px;
+    font-size: 12px; color: #fecaca; line-height: 1.6;
+  }
+  .crc-coverage.no-crc {
+    background: rgba(100, 116, 139, 0.12);
+    border-color: #64748b; color: #cbd5e1;
+  }
+  .crc-coverage strong { color: #fff; }
+  .crc-coverage .skip { color: #fbbf24; font-weight: 600; }
+  .crc-coverage code { font-family: ui-monospace, "SF Mono", Menlo, monospace; background: rgba(0,0,0,0.3); padding: 1px 5px; border-radius: 3px; color: #fde68a; }
+
+  .summary {
+    margin-top: 32px; padding: 18px 20px;
+    background: #1e293b; border-radius: 8px; border: 1px solid #334155;
+    font-size: 13px; line-height: 1.75; color: #cbd5e1;
+  }
+  .summary h3 { margin: 0 0 10px; color: #f1f5f9; font-size: 14px; }
+  .summary ol { margin: 0; padding-left: 20px; }
+  .summary li { margin-bottom: 6px; }
+  .summary li::marker { color: #64748b; }
+  .summary .tag { display: inline-block; font-weight: 600; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .tag-blue   { background: #1e3a8a; color: #93c5fd; }
+  .tag-red    { background: #7f1d1d; color: #fca5a5; }
+  .tag-yellow { background: #78350f; color: #fcd34d; }
+  .tag-green  { background: #064e3b; color: #6ee7b7; }
+</style>
+</head>
+<body>
+
+<h1>四协议帧结构 + CRC 覆盖范围对比</h1>
+<div class="subtitle">普通以太网 / UEC / SUE (完整版 + Lite) / ETHLINK · 字段宽度按典型值, 颜色按层级</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-swatch swatch-l2"></div>L2 头 (Datalink)</div>
+  <div class="legend-item"><div class="legend-swatch swatch-l25"></div>L2.5 (Entropy / Shim)</div>
+  <div class="legend-item"><div class="legend-swatch swatch-l3"></div>L3 头 (Network)</div>
+  <div class="legend-item"><div class="legend-swatch swatch-l4"></div>L4 (UDP)</div>
+  <div class="legend-item"><div class="legend-swatch swatch-txn"></div>Transaction 头</div>
+  <div class="legend-item"><div class="legend-swatch swatch-ses"></div>SES 头 (UEC 特有)</div>
+  <div class="legend-item"><div class="legend-swatch swatch-payload"></div>Payload</div>
+  <div class="legend-item"><div class="legend-swatch swatch-icrc"></div>端到端 CRC (FCS / ICRC / R-CRC / UET CRC)</div>
+  <div class="legend-item"><div class="legend-swatch swatch-fcs"></div>底层 FCS (每跳重算)</div>
+</div>
+
+<!-- ============ 普通以太网 ============ -->
+<div class="protocol">
+  <div class="proto-title">① 普通以太网 (IEEE 802.3)<span class="badge">FCS · 每跳重算</span></div>
+  <div class="proto-note">FCS = CRC-32 (0x04C11DB7) · XOROUT=0xFFFFFFFF · 覆盖整 MAC 帧</div>
+  <div class="frame">
+    <div class="field l2" style="flex: 22;">
+      <span class="name">MAC 头</span>
+      <span class="size">14-18B · DA/SA/Type [+VLAN]</span>
+    </div>
+    <div class="field l3" style="flex: 20;">
+      <span class="name">IP 头</span>
+      <span class="size">20B · TTL/DSCP/ECN</span>
+    </div>
+    <div class="field l4" style="flex: 8;">
+      <span class="name">UDP</span>
+      <span class="size">8B</span>
+    </div>
+    <div class="field payload" style="flex: 40;">
+      <span class="name">Payload</span>
+      <span class="size">var</span>
+    </div>
+    <div class="field fcs" style="flex: 6;">
+      <span class="name">FCS</span>
+      <span class="size">4B</span>
+    </div>
+  </div>
+  <div class="crc-coverage">
+    FCS 覆盖范围: <strong>MAC + IP + UDP + Payload</strong> (整 MAC 帧, 不含 FCS 自身) ·
+    起点 = <code>DA 首字节</code> · <code>"123456789" → 0xCBF43926</code>
+  </div>
+</div>
+
+<!-- ============ UEC ============ -->
+<div class="protocol">
+  <div class="proto-title">② UEC (UE-Specification 1.0.3)<span class="badge">UET CRC · 端到端</span></div>
+  <div class="proto-note">UET CRC = CRC-32C (0x1EDC6F41, Castagnoli) · XOROUT=0xFFFFFFFF · 跳过 L2</div>
+  <div class="frame">
+    <div class="field l2" style="flex: 16;">
+      <span class="name">MAC 头</span>
+      <span class="size">14-18B</span>
+    </div>
+    <div class="field l25" style="flex: 4;">
+      <span class="name">UET Entropy</span>
+      <span class="size">4B · entropy+rsvd</span>
+    </div>
+    <div class="field l3" style="flex: 20;">
+      <span class="name">IP 头</span>
+      <span class="size">20B</span>
+    </div>
+    <div class="field l4" style="flex: 8;">
+      <span class="name">UDP</span>
+      <span class="size">8B · checksum=0</span>
+    </div>
+    <div class="field txn" style="flex: 12;">
+      <span class="name">PDS 头</span>
+      <span class="size">12B · type/flags/PSN/PDCID</span>
+    </div>
+    <div class="field ses" style="flex: 6;">
+      <span class="name">SES</span>
+      <span class="size">var</span>
+    </div>
+    <div class="field payload" style="flex: 22;">
+      <span class="name">UET payload</span>
+      <span class="size">var</span>
+    </div>
+    <div class="field icrc" style="flex: 4;">
+      <span class="name">UET CRC</span>
+      <span class="size">4B</span>
+    </div>
+    <div class="field fcs" style="flex: 4;">
+      <span class="name">FCS</span>
+      <span class="size">4B</span>
+    </div>
+  </div>
+  <div class="crc-coverage">
+    UET CRC 覆盖范围: <strong>IP(non-mutable) + UDP + PDS + SES + UET payload</strong> ·
+    <span class="skip">跳过 MAC 和 UET Entropy</span> · 起点 = <code>源 IP 首字节</code> ·
+    <code>"123456789" → 0xE3069283</code>
+  </div>
+</div>
+
+<!-- ============ SUE 完整版 ============ -->
+<div class="protocol">
+  <div class="proto-title">③ SUE 完整版 (OCP Scale-Up Ethernet v1.0.2)<span class="badge">R-CRC · 端到端</span></div>
+  <div class="proto-note">R-CRC = 32位 (算法/参数未公开) · 覆盖 RH + 打包 PDU · 跳过 L2</div>
+  <div class="frame">
+    <div class="field l2" style="flex: 14;">
+      <span class="name">MAC + AFH Gen1/2</span>
+      <span class="size">8-14B · DA/SA 嵌 XPU-id</span>
+    </div>
+    <div class="field l25" style="flex: 8;">
+      <span class="name">Shim Header</span>
+      <span class="size">8B · 可选 · 类 IP</span>
+    </div>
+    <div class="field txn" style="flex: 8;">
+      <span class="name">RH 头</span>
+      <span class="size">8B · ver/op/xpuid/npsn/vc/part/apsn</span>
+    </div>
+    <div class="field payload" style="flex: 50;">
+      <span class="name">Packed PDU</span>
+      <span class="size">var · ≤ 4 KB · 多命令打包</span>
+    </div>
+    <div class="field icrc" style="flex: 4;">
+      <span class="name">R-CRC</span>
+      <span class="size">4B</span>
+    </div>
+    <div class="field fcs" style="flex: 4;">
+      <span class="name">FCS</span>
+      <span class="size">4B</span>
+    </div>
+  </div>
+  <div class="crc-coverage">
+    R-CRC 覆盖范围: <strong>RH 头 + Packed PDU</strong> ·
+    <span class="skip">跳过 MAC + AFH + Shim Header</span> · 起点 = <code>RH 首字节</code>
+  </div>
+</div>
+
+<!-- ============ SUE Lite ============ -->
+<div class="protocol">
+  <div class="proto-title">④ SUE Lite (OCP Scale-Up Ethernet v1.0.2)<span class="badge">无 R-CRC</span></div>
+  <div class="proto-note">简化低延迟模式 · 仅靠 L2 FCS + 路径 LLR + 无损 PFC/CBFC</div>
+  <div class="frame">
+    <div class="field l2" style="flex: 8;">
+      <span class="name">MAC + AFH Gen2 6B</span>
+      <span class="size">8B · DA/SA 嵌 XPU-id</span>
+    </div>
+    <div class="field payload" style="flex: 84;">
+      <span class="name">Packed PDU</span>
+      <span class="size">var · ≤ 1 KB</span>
+    </div>
+    <div class="field fcs" style="flex: 8;">
+      <span class="name">FCS</span>
+      <span class="size">4B · LLR</span>
+    </div>
+  </div>
+  <div class="crc-coverage no-crc">
+    无端到端 CRC · 可靠性依赖 <strong>底层 FCS + 路径 LLR (Link Layer Retry) + 无损流量类 (PFC/CBFC)</strong>
+  </div>
+</div>
+
+<!-- ============ ETHLINK ============ -->
+<div class="protocol">
+  <div class="proto-title">⑤ ETHLINK (字节跳动 · OEFH + Net + Txn)<span class="badge">ICRC · 端到端</span></div>
+  <div class="proto-note">ICRC = CRC-32 (0x04C11DB7) · 覆盖 OEFH+Network+Transaction+Payload ·
+    Network 头 reserved/TTL/DSCP/ECN tie1, Datalink/Txn reserved 按原值</div>
+  <div class="frame">
+    <div class="field l2" style="flex: 14;">
+      <span class="name">OEFH</span>
+      <span class="size">14B · DA/SA GPU-ID + Entropy + Type</span>
+    </div>
+    <div class="field l3" style="flex: 2;">
+      <span class="name">Net</span>
+      <span class="size">2B · AR/Reserved/TTL/DSCP/ECN</span>
+    </div>
+    <div class="field txn" style="flex: 12;">
+      <span class="name">Transaction</span>
+      <span class="size">12B · PDS 风格</span>
+    </div>
+    <div class="field payload" style="flex: 54;">
+      <span class="name">Payload</span>
+      <span class="size">var</span>
+    </div>
+    <div class="field icrc" style="flex: 4;">
+      <span class="name">ICRC</span>
+      <span class="size">4B</span>
+    </div>
+    <div class="field pad" style="flex: 4;">
+      <span class="name">pad</span>
+      <span class="size">var</span>
+    </div>
+    <div class="field fcs" style="flex: 4;">
+      <span class="name">FCS</span>
+      <span class="size">4B</span>
+    </div>
+  </div>
+  <div class="crc-coverage">
+    ICRC 覆盖范围: <strong>OEFH + Network + Transaction + Payload</strong> ·
+    <span class="skip">包含 L2 (从 OEFH 首字节起算)</span> · Network 头可变字段 tie1 处理 ·
+    <code>"123456789" → 0xCBF43926</code>
+  </div>
+</div>
+
+<div class="summary">
+  <h3>关键观察</h3>
+  <ol>
+    <li>
+      <span class="tag tag-blue">UEC &amp; SUE 思路一致</span>
+      它们的端到端 CRC 都<strong>跳过 L2 头</strong> — 路径上有 in-network 操作
+      (ECN 标记 / packet trimming / LLR / ECN→PFC 映射), MAC 字段可能被改,
+      CRC 不能因此失效。这是端到端校验的标准做法 (IPsec AH 也跳过 L2)。
+    </li>
+    <li>
+      <span class="tag tag-red">ETHLINK 反其道</span>
+      ICRC 从 OEFH 首字节起算, 路径上 <strong>不能改 datalink header</strong>
+      (包括 reserved/entropy/GPU-ID), 假设网络是端到端透明的专用 fabric,
+      不走标准以太网交换机 (否则 802.1Q VLAN 标记、LLR 等动作会破坏 ICRC)。
+    </li>
+    <li>
+      <span class="tag tag-yellow">SUE Lite 是个极端特例</span>
+      直接砍掉 R-CRC, 仅靠 L2 FCS + 路径 LLR + 无损 PFC/CBFC 兜底,
+      适合"短距、超低延迟、可以信任物理链路"的场景
+      (典型如机柜内 Scale-Up)。
+    </li>
+    <li>
+      <span class="tag tag-green">ETHLINK 的 tie1 创新</span>
+      把 TTL/DSCP/ECN 等可变字段在 ICRC 计算时置 1, 接收端也置 1 再算,
+      让端到端校验能容忍路径上对这些字段的修改 — 类似 IPSec AH 的做法,
+      但 ETHLINK 把"可变字段"的精确集合明确列在了 spec 里。
+    </li>
+    <li>
+      <span class="tag tag-blue">datalink/Txn reserved 按原值</span>
+      这条对协议设计是双刃剑: 路径上 reserved 字段不能被改 (否则 ICRC 失效),
+      但换来了 OEFH 头未来扩展时不需要重新设计 ICRC 算法,
+      字段加进 reserved 区后接收端按 spec 保留原值即可。
+    </li>
+  </ol>
+</div>
+
+</body>
+</html>

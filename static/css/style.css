@@ -678,3 +678,42 @@ footer p { margin: 0.25rem 0; }
 [data-theme="dark"] .chroma .cs,
 [data-theme="dark"] .chroma .cp,
 [data-theme="dark"] .chroma .cpf { color:#8087a2; font-style:italic; }
+
+/* ---------- Mermaid diagrams (rendered by mermaid.js runtime) ----------
+   用 <pre class="mermaid"> 包流程图文本，由 baseof.html 引入的 mermaid.js 自动渲染。
+   在 JS 跑完前先给一个占位样式，避免空白跳动。 */
+.content pre.mermaid {
+  text-align: center;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.2rem 1rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+.content pre.mermaid:not([data-processed="true"]) {
+  white-space: pre-wrap;
+}
+/* Mermaid 渲染后会被替换成 <svg>，让它居中显示 */
+.content pre.mermaid svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+[data-theme="dark"] .content pre.mermaid {
+  background: var(--bg-elevated);
+  border-color: var(--border-strong);
+}
+/* embed HTML iframe（ICRC frame 结构图） */
+.content .icrc-frame-embed {
+  width: 100%;
+  height: 720px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-soft);
+  margin: 1.5rem 0;
+}
