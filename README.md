@@ -41,22 +41,22 @@ hugo new posts/your-post-title.md
 然后编辑 `content/posts/your-post-title.md`。也可从 Notion 等导出 Markdown 后填入 front matter 放进 `content/posts/`。
 
 ### Edit the Résumé / 编辑简历
-编辑 `content/resume.md`（章节用 `###`，列表用 Markdown 标准语法）。
+编辑 `static/cv/index.html`（静态 HTML，自带 CSS；中英文分别放在 `static/cv/index.html` 与 `static/en/cv/index.html`）。
 
 ## 📁 Project Structure / 项目结构
 ```
 zhaoyue-zhang.github.io/
 ├── config.toml            # 站点配置（baseurl / 菜单 / 社交链接）
 ├── content/
-│   ├── posts/             # 博客文章 (Markdown)
-│   └── resume.md          # 简历页
+│   └── posts/             # 博客文章 (Markdown)
 ├── layouts/               # 自定义模板（覆盖主题）
 │   ├── _default/          # baseof / single / list
-│   ├── resume/            # 简历页模板
 │   └── index.html         # 首页
 ├── static/
 │   ├── css/               # 自定义样式
-│   └── images/            # 全局图片
+│   ├── cv/                # 中文简历（静态 HTML）
+│   ├── en/                # 英文简历等英文页资源
+│   └── images/            # 全局图片（含头像）
 ├── themes/
 │   └── PaperMod/          # Hugo 主题 (git submodule)
 └── .github/
@@ -81,7 +81,7 @@ git push origin main
 
 ## 📌 To-Do / 待办
 - [x] 完善简历内容（个人信息 / 教育背景 / 工作经历 / 技能）
-- [ ] 补充简历的项目经历与自我评价
+- [x] 补充简历的项目经历与自我评价
 - [ ] 上传头像到 `static/images/`
 - [ ] 接入评论系统 Giscus（可选）
 - [ ] 配置自定义域名（可选）

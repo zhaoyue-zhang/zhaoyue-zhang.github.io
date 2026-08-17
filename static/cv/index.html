@@ -58,11 +58,11 @@
 <details><summary class="summary">项目三：AI 芯片路由信息模块验证</summary><div class="detail"><ul><li>参与数据路由模块验证，负责数据通路 Reference Model 开发。</li><li>支撑路由及数据分发功能验证。</li></ul></div></details>
 </article>
 <article class="block">
-<div class="head"><h3 class="title">NutShell Cache AI 协同验证工程</h3><h4 class="sub">开源项目实践 / CCF Track1 UCAgent 竞赛</h4></div>
-<div class="info"><div class="tag"><code>UCAgent · Claude Code(MCP)· Toffee · Picker · Verilator · Python</code></div><i class="time">2026.07</i></div>
-<div class="detail">基于开源 RISC-V 处理器 NutShell 的 L1 Cache（4-way 组相联、3 级流水）搭建完整验证闭环，工具链全部基于开源生态：Picker 导出 DUT、Toffee 提供验证框架与功能覆盖、Verilator 仿真，一键 <code>make reproduce</code> 可复现。</div>
-<details><summary class="summary">AI Agent 验证工具落地</summary><div class="detail"><ul><li>通过 UCAgent 编排 16 个验证阶段，经 MCP 接入 Claude Code 自动产出环境 / 记分板 / 激励 / 覆盖闭环。</li><li>作为人工审查者完成 4 轮 formal review，纠正 AI 多处错误结论（如 PREFETCH 缺陷根因误判）。</li><li>形成“AI 产出 → 人工审查 → 反馈修复”闭环，沉淀 AI 缺陷对比表。</li></ul></div></details>
-<details><summary class="summary">验证成效</summary><div class="detail"><ul><li>Line / Branch / Expression 覆盖率达 100%，Toggle 多 seed 90%，功能覆盖 120 bins（grate 100%）。</li><li>10 个 bug 注入场景全部检出。</li><li>独立定位 2 个真实 RTL 缺陷（PREFETCH 响应抑制死代码、READ_BURST 死锁），以 <code>xfail(strict=True)</code> 规范化归档，体现 spec 与 RTL 缺口的双重把握。</li></ul></div></details>
+<div class="head"><h3 class="title">NutShell Cache AI 协同验证工程</h3><h4 class="sub">CCF 开源创新大赛 · 决赛 人工智能方向 一等奖</h4></div>
+<div class="info"><div class="tag"><code>UCAgent · Claude Code(MCP)· Toffee · Picker · Verilator · Python · pytest</code></div><i class="time">2026.07</i></div>
+<div class="detail">基于开源 RISC-V 处理器 NutShell 的 L1 Cache（4-way 组相联、3 级流水）搭建端到端验证闭环，一举拿下<b>第八届 CCF 开源创新大赛决赛人工智能方向一等奖</b>。工具链全部开源：Picker 导出 DUT、Toffee 验证框架与功能覆盖、Verilator 仿真，一键 <code>make reproduce</code> 可复现。</div>
+<details><summary class="summary">AI Agent 验证工具落地</summary><div class="detail"><ul><li>通过 UCAgent 编排 16 个验证阶段、11 轮人工 Review，经 MCP 接入 Claude Code 自动产出环境 / 记分板 / 激励 / 覆盖闭环。</li><li>作为人工审查者反转 3 处 AI 结论（PREFETCH 定性、READ_BURST 定性、HVP 反标认领率），纠正多处错误，沉淀 16 项环境缺陷登记与 AI 缺陷对比表。</li><li>形成“AI 产出 → 人工审查 → 反馈修复”的可复现人机协同闭环。</li></ul></div></details>
+<details><summary class="summary">验证成效</summary><div class="detail"><ul><li>行 / 分支 / 表达式覆盖 100%，Toggle 多 seed 90.06%，功能覆盖 113/113 bins（28 组 / 38 点，grate 100%），HVP 计划认领 100%（0 孤儿 0 悬空）。</li><li>记分板沉淀 15 个 check 方法（多拍协议时序 / PREFETCH / READ_BURST / 一致性 / 脏回写），10 个 bug 注入场景全部检出；<code>make reproduce</code> 一键复现（166 pass / 4 xfail）。</li><li>独立定位并诚实披露 3 个真实 RTL 缺陷（PREFETCH latent、READ_BURST 死锁、REFILL demanded-word），配 4 条上游源码证据、0 行 RTL 改动，以 <code>xfail(strict=True)</code> 归档。</li><li>拓展验证深度：LFSR=0 形式化证明（10⁸ 步可执行扫描）、4 种 workload 性能刻画（790 事务 / 71.65% 命中 / p50=2cyc 命中、5cyc 缺失）、CRV 独立收敛（28/28 intent bins、10/10 seeds）。</li></ul></div></details>
 </article>
 </div>
 </section>
